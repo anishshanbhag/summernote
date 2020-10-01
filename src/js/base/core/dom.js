@@ -402,14 +402,79 @@ function wrap(node, wrapperName) {
  *
  * @param {Node} node
  * @param {Node} preceding - predicate function
- */
-function insertAfter(node, preceding) {
+*/
+
+
+
+function anish(){
+  console.log("AA");
+  var x = this.parentElement;
+  if(x.style.textDecoration=="line-through"){
+    x.style.textDecoration = "none"; 
+    x.style.opacity = "1";
+    x.style.listStyleType = "none";
+    this.className = "list-bullet";
+  }
+  else{
+    this.className = "list-bullet1";
+    x.setAttribute("style","text-decoration:line-through;opacity:0.55;list-style-type:none;");
+  }
+}
+
+var globalNum;
+
+
+function insertAfter(node, preceding, num) {
   const next = preceding.nextSibling;
   let parent = preceding.parentNode;
+  if(num==undefined){
+    num = globalNum;
+  }
+  globalNum = num;
+  var y,z;
   if (next) {
-    parent.insertBefore(node, next);
+    if(num=="1"){
+      if(node.tagName=="UL"){
+        parent.insertBefore(node, next);
+      }
+      else{
+        y = document.createElement("DIV");
+        y.classList.add("list-bullet");
+        y.setAttribute("style","display:inline-block;");
+        y.addEventListener("click",anish,true);
+        node.appendChild(y);
+        z = document.createElement("DIV");
+        z.classList.add("anish");
+        z.innerHTML = "<br/>";
+        node.appendChild(z);
+        node.setAttribute("style","list-style-type:none");
+        parent.insertBefore(node,next);
+      }
+    }
+    else{
+      parent.insertBefore(node, next);
+    }
   } else {
-    parent.appendChild(node);
+    if(num=="1"){
+      if(node.tagName=="UL"){
+        parent.appendChild(node);
+      }
+      else if(node.tagName=="LI"){
+        y = document.createElement("DIV");
+        y.classList.add("list-bullet");
+        y.setAttribute("style","display:inline-block;");
+        y.addEventListener("click",anish,true);
+        node.appendChild(y);
+        z = document.createElement("DIV");
+        z.classList.add("anish");
+        node.appendChild(z);
+        node.setAttribute("style","list-style-type:none");
+        parent.appendChild(node);
+      }
+    }
+    else{
+      parent.appendChild(node);
+    }
   }
   return node;
 }
@@ -471,7 +536,6 @@ function isLeftEdgeOf(node, ancestor) {
     }
     node = node.parentNode;
   }
-
   return true;
 }
 
@@ -959,6 +1023,10 @@ function splitPoint(point, isInline) {
 }
 
 function create(nodeName) {
+  if(nodeName=="CL"){
+    nodeName = "UL";
+    return document.createElement(nodeName);
+  }
   return document.createElement(nodeName);
 }
 

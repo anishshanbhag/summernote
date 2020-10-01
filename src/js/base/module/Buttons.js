@@ -447,6 +447,14 @@ export default class Buttons {
       }).render();
     });
 
+    this.context.memo('button.cl', () => {
+      return this.button({
+        contents: this.ui.icon(this.options.icons.todolist),
+        tooltip: this.lang.lists.todo + this.representShortcut('insertOrderedList'),
+        click: this.context.createInvokeHandler('editor.insertTodoList'),
+      }).render();
+    });
+
     const justifyLeft = this.button({
       contents: this.ui.icon(this.options.icons.alignLeft),
       tooltip: this.lang.paragraph.left + this.representShortcut('justifyLeft'),

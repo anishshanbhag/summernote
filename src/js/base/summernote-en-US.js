@@ -87,6 +87,7 @@ $.extend($.summernote.lang, {
     lists: {
       unordered: 'Unordered list',
       ordered: 'Ordered list',
+      todo: 'Todo list',
     },
     options: {
       help: 'Help',

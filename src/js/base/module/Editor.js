@@ -20,7 +20,6 @@ const KEY_BOGUS = 'bogus';
 export default class Editor {
   constructor(context) {
     this.context = context;
-
     this.$note = context.layoutInfo.note;
     this.$editor = context.layoutInfo.editor;
     this.$editable = context.layoutInfo.editable;
@@ -45,6 +44,7 @@ export default class Editor {
     this.context.memo('help.insertParagraph', this.lang.help.insertParagraph);
     this.context.memo('help.insertOrderedList', this.lang.help.insertOrderedList);
     this.context.memo('help.insertUnorderedList', this.lang.help.insertUnorderedList);
+    
     this.context.memo('help.indent', this.lang.help.indent);
     this.context.memo('help.outdent', this.lang.help.outdent);
     this.context.memo('help.formatPara', this.lang.help.formatPara);
@@ -102,6 +102,10 @@ export default class Editor {
 
     this.insertUnorderedList = this.wrapCommand(() => {
       this.bullet.insertUnorderedList(this.editable);
+    });
+
+    this.insertTodoList = this.wrapCommand(() => {
+      this.bullet.insertTodoList(this.editable);
     });
 
     this.indent = this.wrapCommand(() => {
@@ -326,6 +330,7 @@ export default class Editor {
     // bind custom events
     this.$editable.on('keydown', (event) => {
       if (event.keyCode === key.code.ENTER) {
+
         this.context.triggerEvent('enter', event);
       }
       this.context.triggerEvent('keydown', event);

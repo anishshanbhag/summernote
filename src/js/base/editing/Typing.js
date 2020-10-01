@@ -82,7 +82,7 @@ export default class Typing {
           if (split) {
             split.parentNode.insertBefore(nextPara, split);
           } else {
-            dom.insertAfter(nextPara, blockquote); // There's no split if we were at the end of the blockquote
+            dom.insertAfter(nextPara, blockquote, "0"); // There's no split if we were at the end of the blockquote
           }
         } else {
           nextPara = dom.splitTree(splitRoot, rng.getStartPoint());

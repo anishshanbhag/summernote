@@ -431,6 +431,7 @@ class WrappedRange {
     const nodes = rng.nodes(null, {
       fullyContains: true,
     });
+    //console.log("NNODES",nodes);
 
     // find new cursor point
     const point = dom.prevPointUntil(rng.getStartPoint(), function(point) {
@@ -440,6 +441,7 @@ class WrappedRange {
     const emptyParents = [];
     $.each(nodes, function(idx, node) {
       // find empty parents
+      // console.log("Nodes");
       const parent = node.parentNode;
       if (point.node !== parent && dom.nodeLength(parent) === 1) {
         emptyParents.push(parent);
@@ -774,12 +776,26 @@ export default {
    */
   create: function(sc, so, ec, eo) {
     if (arguments.length === 4) {
+      // console.log("SC",sc);
+      // console.log("so",so);
+      // console.log("ec",ec);
+      // console.log("eo",eo);
       return new WrappedRange(sc, so, ec, eo);
     } else if (arguments.length === 2) { // collapsed
       ec = sc;
       eo = so;
+      // console.log("Second");
+      // console.log("SC",sc);
+      // console.log("so",so);
+      // console.log("ec",ec);
+      // console.log("eo",eo);
       return new WrappedRange(sc, so, ec, eo);
     } else {
+      // console.log("SC",sc);
+      // console.log("so",so);
+      // console.log("ec",ec);
+      // console.log("eo",eo);
+      // console.log("Third");
       let wrappedRange = this.createFromSelection();
 
       if (!wrappedRange && arguments.length === 1) {
